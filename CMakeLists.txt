@@ -17,7 +17,10 @@ set_target_properties(discord_sdk PROPERTIES
     IMPORTED_LOCATION "${DISCORD_SDK_SO}"
     INTERFACE_INCLUDE_DIRECTORIES "${DISCORD_INCLUDE_DIR}"
 )
-find_package(spdlog REQUIRED)
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    find_package(spdlog REQUIRED)
+endif()
 
 add_executable(${PROJECT_NAME} main.cpp ${SOURCES})
 
